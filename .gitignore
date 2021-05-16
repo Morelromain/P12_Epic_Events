@@ -1,1 +1,6 @@
-/env
+env
+epic_events/epic_events/__pycache__
+epic_events/user/__pycache__
+epic_events/user/migrations/__pycache__
+epic_events/crm/__pycache__
+epic_events/crm/migrations/__pycache__
