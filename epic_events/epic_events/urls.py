@@ -8,7 +8,9 @@ from crm import views as crm_views
 
 router = routers.DefaultRouter()
 router.register(r'users', users_views.UserViewSet)
-router.register(r'crm', crm_views.ClientViewSet)
+router.register(r'clients', crm_views.ClientViewSet)
+router.register(r'contracts', crm_views.ContractViewSet)
+router.register(r'events', crm_views.EventViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),

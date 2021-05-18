@@ -22,8 +22,8 @@ class Client(models.Model):
 
 class Contract(models.Model):
 
-    contrat_status = models.BooleanField
-    amount = models.FloatField
+    contrat_status = models.BooleanField(null=True)
+    amount = models.FloatField(null=True)
     payement_due = models.DateTimeField(auto_now_add=False)
     date_created = models.DateTimeField(auto_now_add=True)
     date_update = models.DateTimeField(auto_now_add=False)
@@ -44,7 +44,7 @@ class Event(models.Model):
     event_date = models.DateTimeField(auto_now_add=False)
     date_created = models.DateTimeField(auto_now_add=True)
     date_update = models.DateTimeField(auto_now_add=False)
-    event_status = models.BooleanField
+    event_status = models.BooleanField(null=True)
     support_contact = models.ForeignKey(
         to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE,
         blank=True, null=True
