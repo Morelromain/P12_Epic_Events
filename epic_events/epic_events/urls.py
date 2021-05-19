@@ -8,6 +8,7 @@ from crm import views as crm_views
 
 router = routers.DefaultRouter()
 router.register(r'users', users_views.UserViewSet)
+router.register(r'groups', users_views.GroupViewSet)
 router.register(r'clients', crm_views.ClientViewSet)
 router.register(r'contracts', crm_views.ContractViewSet)
 router.register(r'events', crm_views.EventViewSet)
