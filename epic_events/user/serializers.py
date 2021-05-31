@@ -7,11 +7,11 @@ from django.contrib.auth.models import Group
 class GroupSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Group
-        fields = ['name']
+        fields = ['url','name']
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
-    '''groups = GroupSerializer(many=False)'''
-
     class Meta:
         model = User
-        fields = ['url', 'username', 'email', 'is_staff', 'groups']
+        fields = ['url', 'username', 'first_name', 'last_name',
+        'email', 'is_staff', 'last_login', 'groups']
+        read_only_fields = ('last_login', 'is_staff')
