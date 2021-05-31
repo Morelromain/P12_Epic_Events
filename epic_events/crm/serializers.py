@@ -18,12 +18,8 @@ class ContractSerializer(serializers.HyperlinkedModelSerializer):
             'url', 'ratified', 'amount', 'payement_due',
             'date_created', 'date_update', 'sales_contact', 'client'
             ]
-        '''extra_kwargs = {
-        "url": {"view_name": "api:aaa"}
-        }'''
 
 class EventSerializer(serializers.HyperlinkedModelSerializer):
-    '''event_contract = serializers.HyperlinkedRelatedField(view_name='api:aaa', read_only=True)'''
     class Meta:
         model = Event
         fields = [
