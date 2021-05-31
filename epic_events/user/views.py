@@ -12,7 +12,7 @@ from .perm import UserPermission
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    permission_classes = [UserPermission & permissions.IsAuthenticated]
+    permission_classes = [(UserPermission & permissions.IsAuthenticated) | permissions.IsAdminUser]
 
 
 class GroupViewSet(viewsets.ModelViewSet):

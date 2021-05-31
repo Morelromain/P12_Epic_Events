@@ -3,53 +3,58 @@ from django.conf import settings
 
 
 class Client(models.Model):
-
+    
     first_name = models.CharField(max_length=25)
     last_name = models.CharField(max_length=25)
-    email = models.EmailField(max_length=100)
-    phone = models.CharField(max_length=25)
-    mobile = models.CharField(max_length=25)
+    email = models.EmailField(max_length=100, blank=True, null=True)
+    phone = models.CharField(max_length=25, blank=True, null=True)
+    mobile = models.CharField(max_length=25, blank=True, null=True)
+    converted = models.BooleanField(default=False)
     date_created = models.DateTimeField(auto_now_add=True)
-    date_update = models.DateTimeField(auto_now_add=False)
+    date_update = models.DateTimeField(auto_now=True, null=True)
     sales_contact = models.ForeignKey(
-        to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE,
-        blank=True, null=True
-        )
+        to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     def __str__(self):
-        return 'Client: ' + self.last_name
+        return 'Client: ' + self.last_name + self.first_name
 
 
 class Contract(models.Model):
 
-    contrat_status = models.BooleanField(null=True)
+    ratified = models.BooleanField(default=False)
     amount = models.FloatField(null=True)
-    payement_due = models.DateTimeField(auto_now_add=False)
+    payement_due = models.DateTimeField(blank=True, null=True)
     date_created = models.DateTimeField(auto_now_add=True)
-    date_update = models.DateTimeField(auto_now_add=False)
+    date_update = models.DateTimeField(auto_now=True, null=True)
     sales_contact = models.ForeignKey(
-        to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE,
-        blank=True, null=True
-        )
+        to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     client = models.ForeignKey(
-        to=Client, on_delete=models.CASCADE,
-        blank=True, null=True
-        )
+        to=Client, on_delete=models.CASCADE)
+
+    """def __str__(self):
+            return 'Contract: ' + str(self.id)"""
 
 
 class Event(models.Model):
-
-    attendees = models.IntegerField()
-    notes = models.TextField()
-    event_date = models.DateTimeField(auto_now_add=False)
+    
+    attendees = models.IntegerField(blank=True, null=True)
+    notes = models.TextField(blank=True, null=True)
+    event_date = models.DateTimeField(blank=True, null=True)
     date_created = models.DateTimeField(auto_now_add=True)
-    date_update = models.DateTimeField(auto_now_add=False)
-    event_status = models.BooleanField(null=True)
+    date_update = models.DateTimeField(auto_now=True, null=True)
+    accomplish = models.BooleanField(default=False)
     support_contact = models.ForeignKey(
         to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE,
-        blank=True, null=True
-        )
+        blank=True, null=True)
     client = models.ForeignKey(
-        to=Client, on_delete=models.CASCADE,
-        blank=True, null=True
-        )
+        to=Client, on_delete=models.CASCADE)
+    '''event_contract = models.ForeignKey(
+        to=Contract, on_delete=models.CASCADE,
+        unique=True, blank=True, null=True)'''
+    event_contract = models.OneToOneField(
+        to=Contract,
+        on_delete=models.CASCADE)
+
+
+    """def __str__(self):
+            return 'Event: ' + str(self.id)"""
