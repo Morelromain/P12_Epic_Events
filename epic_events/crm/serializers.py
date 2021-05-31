@@ -11,7 +11,6 @@ class ClientSerializer(serializers.HyperlinkedModelSerializer):
             'mobile', 'converted', 'date_created', 'date_update', 'sales_contact'
             ]
 
-
 class ContractSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Contract

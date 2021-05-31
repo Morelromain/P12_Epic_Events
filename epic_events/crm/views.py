@@ -3,6 +3,7 @@ from rest_framework import viewsets
 from rest_framework import permissions
 from django.shortcuts import get_object_or_404
 from rest_framework.filters import SearchFilter
+from django_filters.rest_framework import DjangoFilterBackend
 
 from user.models import User
 from crm.models import Client, Contract, Event
@@ -13,8 +14,10 @@ class ClientViewSet(viewsets.ModelViewSet):
     queryset = Client.objects.all()
     serializer_class = ClientSerializer
     permission_classes = [(ClientPermission & permissions.IsAuthenticated) | permissions.IsAdminUser]
-    filter_backends = [SearchFilter]
-    search_fields = ['first_name', 'last_name']
+    filter_backends = [DjangoFilterBackend, SearchFilter]
+    filter_fields = ['first_name', 'last_name', 'converted', 'sales_contact']
+    search_fields = ['first_name', 'last_name', 'email', 'phone',
+            'mobile', 'sales_contact']
 
     def get_queryset(self, *args, **kwargs):
             """
@@ -34,6 +37,7 @@ class ClientViewSet(viewsets.ModelViewSet):
                 return Client.objects.all()
             else:
                 return Client.objects.all()
+
 
 class ContractViewSet(viewsets.ModelViewSet):
     queryset = Contract.objects.all()
