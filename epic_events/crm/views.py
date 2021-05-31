@@ -15,47 +15,23 @@ class ClientViewSet(viewsets.ModelViewSet):
     serializer_class = ClientSerializer
     permission_classes = [(ClientPermission & permissions.IsAuthenticated) | permissions.IsAdminUser]
     filter_backends = [DjangoFilterBackend, SearchFilter]
-    filter_fields = ['first_name', 'last_name', 'converted', 'sales_contact']
-    search_fields = ['first_name', 'last_name', 'email', 'phone',
-            'mobile', 'sales_contact']
-
-    def get_queryset(self, *args, **kwargs):
-            """
-            Si user est un 3 (2management,1sales,3support) filtre sur ces events
-            sinon affiche tous
-            """
-            if User.objects.filter(username=self.request.user, groups="3").exists():
-                '''queryset = Event.objects.filter(support_contact=self.request.user)
-                """events = get_object_or_404(queryset)"""
-                test = []
-                for event in queryset:
-                    aaa = get_object_or_404(queryset)
-                    print(aaa.client_id)
-                    clients = Client.objects.filter(id=aaa.client_id)
-                    test.append(clients)
-                return test'''
-                return Client.objects.all()
-            else:
-                return Client.objects.all()
+    filter_fields = ['first_name', 'last_name', 'email', 'phone',
+            'mobile', 'converted', 'sales_contact']
+    search_fields = ['first_name', 'last_name']
 
 
 class ContractViewSet(viewsets.ModelViewSet):
     queryset = Contract.objects.all()
     serializer_class = ContractSerializer
     permission_classes = [(ContractPermission & permissions.IsAuthenticated) | permissions.IsAdminUser]
+    filter_backends = [DjangoFilterBackend, SearchFilter]
+    filter_fields = ['ratified', 'amount', 'payement_due', 'client']
 
 
 class EventViewSet(viewsets.ModelViewSet):
     queryset = Event.objects.all()
     serializer_class = EventSerializer
     permission_classes = [(EventPermission & permissions.IsAuthenticated) | permissions.IsAdminUser]
-    
-    '''def get_queryset(self, *args, **kwargs):
-        """
-        Si user est un 3 (1management,2sales,3support) filtre sur ces events
-        sinon affiche tous
-        """
-        if User.objects.filter(username=self.request.user, groups="3").exists():
-            return Event.objects.filter(support_contact=self.request.user)
-        else:
-            return Event.objects.all()'''
+    filter_backends = [DjangoFilterBackend, SearchFilter]
+    filter_fields = ['attendees', 'event_date', 'accomplish', 'support_contact', 'event_contract', 'client',]
+    search_fields = ['notes']
