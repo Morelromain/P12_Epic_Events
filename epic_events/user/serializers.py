@@ -12,6 +12,6 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = User
-        fields = ['url', 'username', 'first_name', 'last_name',
+        fields = ['url', 'username', 'password', 'first_name', 'last_name',
         'email', 'is_staff', 'last_login', 'groups']
         read_only_fields = ('last_login', 'is_staff')

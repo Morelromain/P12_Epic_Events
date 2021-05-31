@@ -14,6 +14,16 @@ class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
     permission_classes = [(UserPermission & permissions.IsAuthenticated) | permissions.IsAdminUser]
 
+    def perform_create(self, serializer):
+        instance = serializer.save()
+        instance.set_password(instance.password)
+        instance.save()
+    
+    def perform_update(self, serializer):
+        instance = serializer.save()
+        instance.set_password(instance.password)
+        instance.save()
+
 
 class GroupViewSet(viewsets.ModelViewSet):
     queryset = Group.objects.all()
