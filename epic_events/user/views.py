@@ -12,8 +12,8 @@ from .perm import UserPermission
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    permission_classes = [(UserPermission & permissions.IsAuthenticated) | permissions.IsAdminUser]
-
+    '''permission_classes = [(UserPermission & permissions.IsAuthenticated) | permissions.IsAdminUser]'''
+    permission_classes = [(UserPermission & permissions.IsAuthenticated)]
     def perform_create(self, serializer):
         instance = serializer.save()
         instance.set_password(instance.password)

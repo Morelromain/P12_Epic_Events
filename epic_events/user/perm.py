@@ -9,12 +9,15 @@ class UserPermission(permissions.BasePermission):
     """
 
     def has_permission(self, request, view):
-        """print(list(request.user.groups.filter()))"""
         if request.user.groups.filter(name="Management").exists():
             return True
-        return False
+        if request.method == "PUT":
+            return True
+        return request.method in permissions.SAFE_METHODS
 
     def has_object_permission(self, request, view, obj):
+        if request.user == obj:
+            return True
         if request.user.groups.filter(name="Management").exists():
             return True
         return False
