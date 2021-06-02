@@ -10,6 +10,7 @@ from crm.models import Client, Contract, Event
 from crm.serializers import ClientSerializer, ContractSerializer, EventSerializer
 from .perm import ClientPermission, ContractPermission, EventPermission
 
+
 class ClientViewSet(viewsets.ModelViewSet):
     queryset = Client.objects.all()
     serializer_class = ClientSerializer
@@ -19,10 +20,23 @@ class ClientViewSet(viewsets.ModelViewSet):
             'mobile', 'converted', 'sales_contact']
     search_fields = ['first_name', 'last_name']
 
-    def get_object(self):
-            obj = get_object_or_404(self.get_queryset())
-            self.check_object_permissions(self.request, obj)
-            return obj
+
+class MyClientViewSet(viewsets.ModelViewSet):
+    queryset = Client.objects.all()
+    serializer_class = ClientSerializer
+    permission_classes = [(ClientPermission & permissions.IsAuthenticated)]
+    filter_backends = [DjangoFilterBackend, SearchFilter]
+    filter_fields = ['first_name', 'last_name', 'email', 'phone',
+            'mobile', 'converted', 'sales_contact']
+    search_fields = ['first_name', 'last_name']
+    
+    def get_queryset(self):
+        """
+        This view should return a list of all the client
+        for the currently authenticated user.
+        """
+        user = self.request.user
+        return Client.objects.filter(sales_contact=user)
 
 class ContractViewSet(viewsets.ModelViewSet):
     queryset = Contract.objects.all()
@@ -40,7 +54,7 @@ class EventViewSet(viewsets.ModelViewSet):
     filter_fields = ['attendees', 'event_date', 'accomplish', 'support_contact', 'event_contract', 'client',]
     search_fields = ['notes']
 
-    def get_object(self):
+    """def get_object(self):
             obj = get_object_or_404(self.get_queryset())
             self.check_object_permissions(self.request, obj)
-            return obj
+            return obj"""

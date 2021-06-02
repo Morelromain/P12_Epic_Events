@@ -13,7 +13,8 @@ class Client(models.Model):
     date_created = models.DateTimeField(auto_now_add=True)
     date_update = models.DateTimeField(auto_now=True, null=True)
     sales_contact = models.ForeignKey(
-        to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+        to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE,
+        blank=True, null=True)
 
     def __str__(self):
         return 'Client: ' + self.last_name + self.first_name
@@ -27,7 +28,8 @@ class Contract(models.Model):
     date_created = models.DateTimeField(auto_now_add=True)
     date_update = models.DateTimeField(auto_now=True, null=True)
     sales_contact = models.ForeignKey(
-        to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+        to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE,
+        blank=True, null=True)
     client = models.ForeignKey(
         to=Client, on_delete=models.CASCADE)
 
@@ -47,10 +49,9 @@ class Event(models.Model):
         to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE,
         blank=True, null=True)
     client = models.ForeignKey(
-        to=Client, on_delete=models.CASCADE)
-    '''event_contract = models.ForeignKey(
-        to=Contract, on_delete=models.CASCADE,
-        unique=True, blank=True, null=True)'''
+        to=Client, on_delete=models.CASCADE,
+        blank=True, null=True)
+
     event_contract = models.OneToOneField(
         to=Contract,
         on_delete=models.CASCADE)

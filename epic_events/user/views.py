@@ -6,13 +6,12 @@ from user.models import User
 from django.contrib.auth.models import Group
 from user.serializers import UserSerializer
 from user.serializers import GroupSerializer
-from .perm import UserPermission
+from .perm import UserPermission, GroupPermission
 
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    '''permission_classes = [(UserPermission & permissions.IsAuthenticated) | permissions.IsAdminUser]'''
     permission_classes = [(UserPermission & permissions.IsAuthenticated)]
     def perform_create(self, serializer):
         instance = serializer.save()
@@ -28,4 +27,4 @@ class UserViewSet(viewsets.ModelViewSet):
 class GroupViewSet(viewsets.ModelViewSet):
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
-    permission_classes = [permissions.IsAdminUser]
+    permission_classes = [(GroupPermission & permissions.IsAuthenticated)]

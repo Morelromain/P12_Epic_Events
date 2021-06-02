@@ -6,35 +6,34 @@ from user.models import User
 
 class ClientPermission(permissions.BasePermission):
     """
-    BLABLA
+    Client permissions based on user group :
+    User Sales : All permissions
+    Support Sales : Read only
     """
 
     def has_permission(self, request, view):
-        if request.user.groups.filter(name="Management").exists():
+        if request.user.groups.filter(name="Sales").exists():
             return True
+        if request.user.groups.filter(name="Support").exists():
+            return request.method in permissions.SAFE_METHODS
+        return True
+
+    def has_object_permission(self, request, view, obj):
         if request.user.groups.filter(name="Sales").exists():
             return True
         if request.user.groups.filter(name="Support").exists():
             return request.method in permissions.SAFE_METHODS
         return False
 
-    def has_object_permission(self, request, view, obj):
-        if request.user.groups.filter(name="Management").exists():
-            return True
-        if request.user.groups.filter(name="Sales").exists():
-            return False
-        if request.user.groups.filter(name="Support").exists():
-            return request.method in permissions.SAFE_METHODS
-        return False
 
 class ContractPermission(permissions.BasePermission):
     """
-    BLABLA
+    Contract permissions based on the user group :
+    User Sales : All permissions
+    Support Sales : Read only
     """
 
     def has_permission(self, request, view):
-        if request.user.groups.filter(name="Management").exists():
-            return True
         if request.user.groups.filter(name="Sales").exists():
             return True
         if request.user.groups.filter(name="Support").exists():
@@ -42,22 +41,21 @@ class ContractPermission(permissions.BasePermission):
         return False
 
     def has_object_permission(self, request, view, obj):
-        if request.user.groups.filter(name="Management").exists():
-            return True
         if request.user.groups.filter(name="Sales").exists():
             return True
         if request.user.groups.filter(name="Support").exists():
             return request.method in permissions.SAFE_METHODS
         return False
 
+
 class EventPermission(permissions.BasePermission):
     """
-    BLABLA
+    Contract permissions based on the user group :
+    User Sales : All permissions
+    Support Sales : Update for its own events, read for other
     """
 
     def has_permission(self, request, view):
-        if request.user.groups.filter(name="Management").exists():
-            return True
         if request.user.groups.filter(name="Sales").exists():
             return True
         if request.user.groups.filter(name="Support").exists():
@@ -65,8 +63,6 @@ class EventPermission(permissions.BasePermission):
         return False
 
     def has_object_permission(self, request, view, obj):
-        if request.user.groups.filter(name="Management").exists():
-            return True
         if request.user.groups.filter(name="Sales").exists():
             return True
         if request.user.groups.filter(name="Support").exists():

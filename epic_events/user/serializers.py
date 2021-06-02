@@ -14,4 +14,4 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
         model = User
         fields = ['url', 'username', 'password', 'first_name', 'last_name',
         'email', 'is_staff', 'last_login', 'groups']
-        read_only_fields = ('last_login', 'is_staff')
+        read_only_fields = ('last_login', 'is_staff', 'groups', 'password', 'username')
