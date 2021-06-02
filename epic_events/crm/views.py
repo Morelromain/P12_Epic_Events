@@ -38,12 +38,29 @@ class MyClientViewSet(viewsets.ModelViewSet):
         user = self.request.user
         return Client.objects.filter(sales_contact=user)
 
+
 class ContractViewSet(viewsets.ModelViewSet):
     queryset = Contract.objects.all()
     serializer_class = ContractSerializer
     permission_classes = [(ContractPermission & permissions.IsAuthenticated)]
     filter_backends = [DjangoFilterBackend, SearchFilter]
     filter_fields = ['ratified', 'amount', 'payement_due', 'client']
+
+
+class MyContractViewSet(viewsets.ModelViewSet):
+    queryset = Contract.objects.all()
+    serializer_class = ContractSerializer
+    permission_classes = [(ContractPermission & permissions.IsAuthenticated)]
+    filter_backends = [DjangoFilterBackend, SearchFilter]
+    filter_fields = ['ratified', 'amount', 'payement_due', 'client']
+    
+    def get_queryset(self):
+        """
+        This view should return a list of all the contract
+        for the currently authenticated user.
+        """
+        user = self.request.user
+        return Contract.objects.filter(sales_contact=user)
 
 
 class EventViewSet(viewsets.ModelViewSet):
@@ -54,7 +71,19 @@ class EventViewSet(viewsets.ModelViewSet):
     filter_fields = ['attendees', 'event_date', 'accomplish', 'support_contact', 'event_contract', 'client',]
     search_fields = ['notes']
 
-    """def get_object(self):
-            obj = get_object_or_404(self.get_queryset())
-            self.check_object_permissions(self.request, obj)
-            return obj"""
+
+class MyEventViewSet(viewsets.ModelViewSet):
+    queryset = Event.objects.all()
+    serializer_class = EventSerializer
+    permission_classes = [(EventPermission & permissions.IsAuthenticated)]
+    filter_backends = [DjangoFilterBackend, SearchFilter]
+    filter_fields = ['attendees', 'event_date', 'accomplish', 'support_contact', 'event_contract', 'client',]
+    search_fields = ['notes']
+    
+    def get_queryset(self):
+        """
+        This view should return a list of all the event
+        for the currently authenticated user.
+        """
+        user = self.request.user
+        return Event.objects.filter(support_contact=user)
