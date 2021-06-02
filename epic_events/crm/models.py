@@ -17,7 +17,7 @@ class Client(models.Model):
         blank=True, null=True)
 
     def __str__(self):
-        return 'Client: ' + self.last_name + self.first_name
+        return self.last_name + ' ' + self.first_name
 
 
 class Contract(models.Model):
@@ -33,8 +33,8 @@ class Contract(models.Model):
     client = models.ForeignKey(
         to=Client, on_delete=models.CASCADE)
 
-    """def __str__(self):
-            return 'Contract: ' + str(self.id)"""
+    def __str__(self):
+            return 'N° ' + str(self.id) + ' ' + str(self.client)
 
 
 class Event(models.Model):
@@ -51,11 +51,9 @@ class Event(models.Model):
     client = models.ForeignKey(
         to=Client, on_delete=models.CASCADE,
         blank=True, null=True)
-
     event_contract = models.OneToOneField(
         to=Contract,
         on_delete=models.CASCADE)
 
-
-    """def __str__(self):
-            return 'Event: ' + str(self.id)"""
+    def __str__(self):
+            return 'N° ' + str(self.id) + ' ' + str(self.client)

@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from rest_framework import viewsets
 from rest_framework import permissions
-from django.shortcuts import get_object_or_404
 from rest_framework.filters import SearchFilter
 from django_filters.rest_framework import DjangoFilterBackend
 
@@ -19,6 +18,23 @@ class ClientViewSet(viewsets.ModelViewSet):
     filter_fields = ['first_name', 'last_name', 'email', 'phone',
             'mobile', 'converted', 'sales_contact']
     search_fields = ['first_name', 'last_name']
+
+
+class ContractViewSet(viewsets.ModelViewSet):
+    queryset = Contract.objects.all()
+    serializer_class = ContractSerializer
+    permission_classes = [(ContractPermission & permissions.IsAuthenticated)]
+    filter_backends = [DjangoFilterBackend, SearchFilter]
+    filter_fields = ['ratified', 'amount', 'payement_due', 'client']
+
+
+class EventViewSet(viewsets.ModelViewSet):
+    queryset = Event.objects.all()
+    serializer_class = EventSerializer
+    permission_classes = [(EventPermission & permissions.IsAuthenticated)]
+    filter_backends = [DjangoFilterBackend, SearchFilter]
+    filter_fields = ['attendees', 'event_date', 'accomplish', 'support_contact', 'event_contract', 'client',]
+    search_fields = ['notes']
 
 
 class MyClientViewSet(viewsets.ModelViewSet):
@@ -39,14 +55,6 @@ class MyClientViewSet(viewsets.ModelViewSet):
         return Client.objects.filter(sales_contact=user)
 
 
-class ContractViewSet(viewsets.ModelViewSet):
-    queryset = Contract.objects.all()
-    serializer_class = ContractSerializer
-    permission_classes = [(ContractPermission & permissions.IsAuthenticated)]
-    filter_backends = [DjangoFilterBackend, SearchFilter]
-    filter_fields = ['ratified', 'amount', 'payement_due', 'client']
-
-
 class MyContractViewSet(viewsets.ModelViewSet):
     queryset = Contract.objects.all()
     serializer_class = ContractSerializer
@@ -61,15 +69,6 @@ class MyContractViewSet(viewsets.ModelViewSet):
         """
         user = self.request.user
         return Contract.objects.filter(sales_contact=user)
-
-
-class EventViewSet(viewsets.ModelViewSet):
-    queryset = Event.objects.all()
-    serializer_class = EventSerializer
-    permission_classes = [(EventPermission & permissions.IsAuthenticated)]
-    filter_backends = [DjangoFilterBackend, SearchFilter]
-    filter_fields = ['attendees', 'event_date', 'accomplish', 'support_contact', 'event_contract', 'client',]
-    search_fields = ['notes']
 
 
 class MyEventViewSet(viewsets.ModelViewSet):
