@@ -12,7 +12,7 @@ class Status(models.Model):
 
 
 class Client(models.Model):
-    
+
     first_name = models.CharField(max_length=25)
     last_name = models.CharField(max_length=25)
     email = models.EmailField(max_length=100, blank=True, null=True)
@@ -46,11 +46,11 @@ class Contract(models.Model):
         blank=True, null=True)
 
     def __str__(self):
-            return 'N° ' + str(self.id) + ' ' + str(self.client)
+        return 'N° ' + str(self.id) + ' ' + str(self.client)
 
 
 class Event(models.Model):
-    
+
     attendees = models.IntegerField(blank=True, null=True)
     notes = models.TextField(blank=True, null=True)
     event_date = models.DateTimeField(blank=True, null=True)
@@ -68,4 +68,4 @@ class Event(models.Model):
         on_delete=models.CASCADE)
 
     def __str__(self):
-            return 'N° ' + str(self.id) + ' ' + str(self.client)
+        return 'N° ' + str(self.id) + ' ' + str(self.client)

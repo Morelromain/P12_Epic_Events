@@ -9,8 +9,8 @@ class ClientSerializer(serializers.HyperlinkedModelSerializer):
         model = Client
         fields = [
             'url', 'first_name', 'last_name', 'email', 'phone',
-            'mobile', 'converted', 'date_created', 'date_update', 'sales_contact'
-            ]
+            'mobile', 'converted', 'date_created', 'date_update',
+            'sales_contact']
         read_only_fields = ['sales_contact']
 
     def create(self, validated_data):
@@ -27,8 +27,7 @@ class ContractSerializer(serializers.HyperlinkedModelSerializer):
         fields = [
             'url', 'ratified', 'amount', 'payement_due',
             'date_created', 'date_update', 'sales_contact',
-            'client', 'status_contract'
-            ]
+            'client', 'status_contract']
         read_only_fields = ['sales_contact']
 
     def create(self, validated_data):
@@ -45,10 +44,10 @@ class EventSerializer(serializers.HyperlinkedModelSerializer):
         model = Event
         fields = [
             'url', 'attendees', 'notes', 'date_created', 'date_update',
-            'event_date', 'accomplish', 'support_contact', 'client', 'event_contract'
-            ]
+            'event_date', 'accomplish', 'support_contact', 'client',
+            'event_contract']
     read_only_fields = ['client']
-    
+
     def create(self, validated_data):
         info = Event.objects.create(**validated_data)
         Contract.objects.filter(id=info.event_contract_id)

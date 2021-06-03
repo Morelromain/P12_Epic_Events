@@ -1,7 +1,5 @@
 from rest_framework import permissions
 
-from .models import User
-
 
 class UserPermission(permissions.BasePermission):
     """
@@ -19,6 +17,7 @@ class UserPermission(permissions.BasePermission):
         if request.user == obj:
             return True
         return request.method in permissions.SAFE_METHODS
+
 
 class GroupPermission(permissions.BasePermission):
     """
