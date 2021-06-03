@@ -24,7 +24,8 @@ class ContractSerializer(serializers.HyperlinkedModelSerializer):
         model = Contract
         fields = [
             'url', 'ratified', 'amount', 'payement_due',
-            'date_created', 'date_update', 'sales_contact', 'client'
+            'date_created', 'date_update', 'sales_contact',
+            'client', 'status_contract'
             ]
         read_only_fields = ['sales_contact']
 

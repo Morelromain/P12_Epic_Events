@@ -2,6 +2,15 @@ from django.db import models
 from django.conf import settings
 
 
+class Status(models.Model):
+
+    label = models.CharField(max_length=100)
+    notes = models.TextField(blank=True)
+
+    def __str__(self):
+        return 'N° ' + str(self.id) + ' ' + self.label
+
+
 class Client(models.Model):
     
     first_name = models.CharField(max_length=25)
@@ -32,6 +41,9 @@ class Contract(models.Model):
         blank=True, null=True)
     client = models.ForeignKey(
         to=Client, on_delete=models.CASCADE)
+    status_contract = models.ForeignKey(
+        to=Status, on_delete=models.CASCADE,
+        blank=True, null=True)
 
     def __str__(self):
             return 'N° ' + str(self.id) + ' ' + str(self.client)
