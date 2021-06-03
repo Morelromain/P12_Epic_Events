@@ -24,9 +24,6 @@ router.get_api_root_view().cls.__doc__ = (
     "API Epic Event for sales and support user"
 )
 
-admin.site.site_title = "Epic events"
-
-
 urlpatterns = [
     path('', include(router.urls)),
     path('admin-secure/', admin.site.urls),
