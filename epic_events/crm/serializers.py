@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from crm.models import Client, Contract, Event
+from .models import Client, Contract, Event
 
 
 class ClientSerializer(serializers.HyperlinkedModelSerializer):

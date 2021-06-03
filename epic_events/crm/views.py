@@ -1,12 +1,11 @@
 from django.shortcuts import render
-from rest_framework import viewsets
-from rest_framework import permissions
+from rest_framework import viewsets, permissions
 from rest_framework.filters import SearchFilter
 from django_filters.rest_framework import DjangoFilterBackend
 
 from user.models import User
-from crm.models import Client, Contract, Event
-from crm.serializers import ClientSerializer, ContractSerializer, EventSerializer
+from .models import Client, Contract, Event
+from .serializers import ClientSerializer, ContractSerializer, EventSerializer
 from .perm import ClientPermission, ContractPermission, EventPermission
 
 

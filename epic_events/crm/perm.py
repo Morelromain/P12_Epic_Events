@@ -3,7 +3,6 @@ from rest_framework import permissions
 from user.models import User
 
 
-
 class ClientPermission(permissions.BasePermission):
     """
     Client permissions based on user group :
