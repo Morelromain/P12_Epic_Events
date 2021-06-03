@@ -38,6 +38,7 @@ class ContractSerializer(serializers.HyperlinkedModelSerializer):
         info.save()
         return info
 
+
 class EventSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
