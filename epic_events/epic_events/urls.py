@@ -6,7 +6,9 @@ from rest_framework_nested import routers
 from user import views as users_views
 from crm import views as crm_views
 
+
 router = routers.DefaultRouter()
+
 router.register(r'users', users_views.UserViewSet)
 router.register(r'groups', users_views.GroupViewSet)
 router.register(r'clients', crm_views.ClientViewSet)
@@ -16,6 +18,14 @@ router.register(r'events', crm_views.EventViewSet)
 router.register(r'my_clients', crm_views.MyClientViewSet,"my_clients")
 router.register(r'my_contracts', crm_views.MyContractViewSet,"my_contracts")
 router.register(r'my_event', crm_views.MyEventViewSet,"my_event")
+
+router.get_api_root_view().cls.__name__ = "Epic Event"
+router.get_api_root_view().cls.__doc__ = (
+    "API Epic Event for sales and support user"
+)
+
+admin.site.site_title = "Epic events"
+
 
 urlpatterns = [
     path('', include(router.urls)),

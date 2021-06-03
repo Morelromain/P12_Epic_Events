@@ -3,6 +3,8 @@ from django.contrib.auth.admin import UserAdmin
 
 from .models import Client, Contract, Event
 
+admin.site.site_header = "Epic evvents administration"
+admin.site.site_title = "Epic events"
 
 admin.site.register(Client)
 admin.site.register(Contract)
