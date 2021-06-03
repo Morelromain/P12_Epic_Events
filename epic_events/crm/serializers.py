@@ -4,6 +4,7 @@ from .models import Client, Contract, Event
 
 
 class ClientSerializer(serializers.HyperlinkedModelSerializer):
+
     class Meta:
         model = Client
         fields = [
@@ -20,6 +21,7 @@ class ClientSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class ContractSerializer(serializers.HyperlinkedModelSerializer):
+
     class Meta:
         model = Contract
         fields = [
@@ -37,6 +39,7 @@ class ContractSerializer(serializers.HyperlinkedModelSerializer):
         return info
 
 class EventSerializer(serializers.HyperlinkedModelSerializer):
+
     class Meta:
         model = Event
         fields = [
