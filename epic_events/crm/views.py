@@ -10,6 +10,10 @@ from .perm import ClientPermission, ContractPermission, EventPermission
 
 
 class ClientViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows Clients to be viewed or edited.
+    """
+
     queryset = Client.objects.all()
     serializer_class = ClientSerializer
     permission_classes = [(ClientPermission & permissions.IsAuthenticated)]
@@ -20,6 +24,10 @@ class ClientViewSet(viewsets.ModelViewSet):
 
 
 class ContractViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows Contracts to be viewed or edited.
+    """
+
     queryset = Contract.objects.all()
     serializer_class = ContractSerializer
     permission_classes = [(ContractPermission & permissions.IsAuthenticated)]
@@ -28,6 +36,10 @@ class ContractViewSet(viewsets.ModelViewSet):
 
 
 class EventViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows Events to be viewed or edited.
+    """
+
     queryset = Event.objects.all()
     serializer_class = EventSerializer
     permission_classes = [(EventPermission & permissions.IsAuthenticated)]
@@ -37,6 +49,10 @@ class EventViewSet(viewsets.ModelViewSet):
 
 
 class MyClientViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows the user's Clients to be viewed or edited.
+    """
+
     queryset = Client.objects.all()
     serializer_class = ClientSerializer
     permission_classes = [(ClientPermission & permissions.IsAuthenticated)]
@@ -46,15 +62,15 @@ class MyClientViewSet(viewsets.ModelViewSet):
     search_fields = ['first_name', 'last_name']
     
     def get_queryset(self):
-        """
-        This view should return a list of all the client
-        for the currently authenticated user.
-        """
         user = self.request.user
         return Client.objects.filter(sales_contact=user)
 
 
 class MyContractViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows the user's Contracts to be viewed or edited.
+    """
+
     queryset = Contract.objects.all()
     serializer_class = ContractSerializer
     permission_classes = [(ContractPermission & permissions.IsAuthenticated)]
@@ -62,15 +78,15 @@ class MyContractViewSet(viewsets.ModelViewSet):
     filter_fields = ['ratified', 'amount', 'payement_due', 'client']
     
     def get_queryset(self):
-        """
-        This view should return a list of all the contract
-        for the currently authenticated user.
-        """
         user = self.request.user
         return Contract.objects.filter(sales_contact=user)
 
 
 class MyEventViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows the user's Events to be viewed or edited.
+    """
+
     queryset = Event.objects.all()
     serializer_class = EventSerializer
     permission_classes = [(EventPermission & permissions.IsAuthenticated)]
@@ -79,9 +95,5 @@ class MyEventViewSet(viewsets.ModelViewSet):
     search_fields = ['notes']
     
     def get_queryset(self):
-        """
-        This view should return a list of all the event
-        for the currently authenticated user.
-        """
         user = self.request.user
         return Event.objects.filter(support_contact=user)
