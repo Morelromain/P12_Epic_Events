@@ -1,6 +1,6 @@
 from rest_framework import permissions
 
-from user.models import User
+from .models import User
 
 
 class UserPermission(permissions.BasePermission):
