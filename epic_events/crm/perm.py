@@ -14,7 +14,7 @@ class ClientPermission(permissions.BasePermission):
             return True
         if request.user.groups.filter(name="Support").exists():
             return request.method in permissions.SAFE_METHODS
-        return True
+        return False
 
     def has_object_permission(self, request, view, obj):
         if request.user.groups.filter(name="Sales").exists():
@@ -81,4 +81,25 @@ class EventPermission(permissions.BasePermission):
                     "GET", "PUT", "PATCH", "OPTIONS", "HEAD"]
             else:
                 return request.method in permissions.SAFE_METHODS
+        return False
+
+
+class StatusPermission(permissions.BasePermission):
+    """
+    Status permissions :
+    Read only for User Sales and Supports
+    """
+
+    def has_permission(self, request, view):
+        if request.user.groups.filter(name="Sales").exists():
+            return request.method in permissions.SAFE_METHODS
+        if request.user.groups.filter(name="Support").exists():
+            return request.method in permissions.SAFE_METHODS
+        return False
+
+    def has_object_permission(self, request, view, obj):
+        if request.user.groups.filter(name="Sales").exists():
+            return request.method in permissions.SAFE_METHODS
+        if request.user.groups.filter(name="Support").exists():
+            return request.method in permissions.SAFE_METHODS
         return False

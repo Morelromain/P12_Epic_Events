@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Client, Contract, Event
+from .models import Client, Contract, Event, Status
 
 
 class ClientSerializer(serializers.HyperlinkedModelSerializer):
@@ -54,3 +54,13 @@ class EventSerializer(serializers.HyperlinkedModelSerializer):
         info.sales_contact = self.context["request"].user
         info.save()
         return info
+
+
+class StatusSerializer(serializers.HyperlinkedModelSerializer):
+
+    class Meta:
+        model = Status
+        fields = [
+            'url', 'label', 'notes']
+        read_only_fields = ['label', 'notes']
+

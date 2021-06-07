@@ -14,6 +14,7 @@ router.register(r'groups', users_views.GroupViewSet)
 router.register(r'clients', crm_views.ClientViewSet)
 router.register(r'contracts', crm_views.ContractViewSet)
 router.register(r'events', crm_views.EventViewSet)
+router.register(r'status', crm_views.StatusViewSet)
 
 router.register(r'my_clients', crm_views.MyClientViewSet, "my_clients")
 router.register(r'my_contracts', crm_views.MyContractViewSet, "my_contracts")
