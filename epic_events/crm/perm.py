@@ -4,8 +4,9 @@ from rest_framework import permissions
 class ClientPermission(permissions.BasePermission):
     """
     Client permissions based on user group :
-    User Sales : All permissions
-    Support Sales : Read only
+    User Sales :    All permissions if not converted,
+                    All permissions without delete else.
+    User Support : Read only
     """
 
     def has_permission(self, request, view):
@@ -17,7 +18,11 @@ class ClientPermission(permissions.BasePermission):
 
     def has_object_permission(self, request, view, obj):
         if request.user.groups.filter(name="Sales").exists():
-            return True
+            if obj.converted is False:
+                return True
+            else:
+                return request.method in [
+                    "GET", "PUT", "PATCH", "OPTIONS", "HEAD"]
         if request.user.groups.filter(name="Support").exists():
             return request.method in permissions.SAFE_METHODS
         return False
@@ -26,8 +31,9 @@ class ClientPermission(permissions.BasePermission):
 class ContractPermission(permissions.BasePermission):
     """
     Contract permissions based on the user group :
-    User Sales : All permissions
-    Support Sales : Read only
+    User Sales :    All permissions if not ratified,
+                    Read only else.
+    User Support : Read only
     """
 
     def has_permission(self, request, view):
@@ -39,7 +45,11 @@ class ContractPermission(permissions.BasePermission):
 
     def has_object_permission(self, request, view, obj):
         if request.user.groups.filter(name="Sales").exists():
-            return True
+            if (request.user == obj.sales_contact and
+                obj.ratified is False):
+                return True
+            else :
+                return request.method in permissions.SAFE_METHODS
         if request.user.groups.filter(name="Support").exists():
             return request.method in permissions.SAFE_METHODS
         return False
@@ -49,7 +59,8 @@ class EventPermission(permissions.BasePermission):
     """
     Contract permissions based on the user group :
     User Sales : All permissions
-    Support Sales : Update for its own events not accomplish, read for other
+    User Support :  Update for its own events if not accomplish,
+                    Read only else.
     """
 
     def has_permission(self, request, view):
@@ -63,9 +74,9 @@ class EventPermission(permissions.BasePermission):
     def has_object_permission(self, request, view, obj):
         if request.user.groups.filter(name="Sales").exists():
             return request.method in permissions.SAFE_METHODS
-        if (request.user.groups.filter(name="Support").exists() and
+        if request.user.groups.filter(name="Support").exists():
+            if (request.user == obj.support_contact and
                 obj.accomplish is False):
-            if request.user == obj.support_contact:
                 return request.method in [
                     "GET", "PUT", "PATCH", "OPTIONS", "HEAD"]
             else:
