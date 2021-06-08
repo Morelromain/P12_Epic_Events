@@ -39,7 +39,7 @@ class Contract(models.Model):
 
     ratified = models.BooleanField(default=False)
     amount = models.FloatField(null=True)
-    payement_due = models.DateTimeField(blank=True, null=True)
+    payement_due = models.DateField(blank=True, null=True)
     date_created = models.DateTimeField(auto_now_add=True)
     date_update = models.DateTimeField(auto_now=True, null=True)
     sales_contact = models.ForeignKey(
@@ -62,7 +62,7 @@ class Event(models.Model):
 
     attendees = models.IntegerField(blank=True, null=True)
     notes = models.TextField(blank=True, null=True)
-    event_date = models.DateTimeField(blank=True, null=True)
+    event_date = models.DateField(blank=True, null=True)
     date_created = models.DateTimeField(auto_now_add=True)
     date_update = models.DateTimeField(auto_now=True, null=True)
     accomplish = models.BooleanField(default=False)
