@@ -10,6 +10,9 @@ class Status(models.Model):
     def __str__(self):
         return 'N° ' + str(self.id) + ' ' + self.label
 
+    class Meta:
+        ordering = ['id']
+
 
 class Client(models.Model):
 
@@ -27,6 +30,9 @@ class Client(models.Model):
 
     def __str__(self):
         return self.last_name + ' ' + self.first_name
+
+    class Meta:
+        ordering = ['-date_update']
 
 
 class Contract(models.Model):
@@ -47,6 +53,9 @@ class Contract(models.Model):
 
     def __str__(self):
         return 'N° ' + str(self.id) + ' ' + str(self.client)
+
+    class Meta:
+        ordering = ['-date_update']
 
 
 class Event(models.Model):
@@ -69,3 +78,6 @@ class Event(models.Model):
 
     def __str__(self):
         return 'N° ' + str(self.id) + ' ' + str(self.client)
+
+    class Meta:
+        ordering = ['-date_update']

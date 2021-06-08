@@ -24,6 +24,6 @@ class GroupViewSet(viewsets.ModelViewSet):
     API endpoint that allows Groups to be viewed.
     """
 
-    queryset = Group.objects.all()
+    queryset = Group.objects.all().order_by('id')
     serializer_class = GroupSerializer
     permission_classes = [(GroupPermission & permissions.IsAuthenticated)]
