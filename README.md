@@ -68,7 +68,8 @@ To access browsable API : [http://127.0.0.1:8000](http://127.0.0.1:8000/)
 Only sales and support users can access data
 
 POSTMAN documentation link of the OC_P12 collection :  
-[A MODIF](A MODIF)
+[https://documenter.getpostman.com/view/14076898/TzeTHow3]
+(https://documenter.getpostman.com/view/14076898/TzeTHow3)
 
 Follow the documentation to access API endpoints, 
 see all methode allow per groups, restriction, filter and more.
@@ -153,7 +154,8 @@ Pour accéder à l'API  : [http://127.0.0.1:8000](http://127.0.0.1:8000/)
 Seuls les utilisateurs "sales" et "support" peuvent accéder aux données  
 
 Lien de la documentation POSTMAN de la collection OC_P12 :  
-[A MODIF](A MODIF)
+[https://documenter.getpostman.com/view/14076898/TzeTHow3]
+(https://documenter.getpostman.com/view/14076898/TzeTHow3)
 
 Suivez la documentation pour accéder aux points de terminaison de l'API, 
 voir toutes les méthodes autorisées par groupe, restriction, filtre et autre.
