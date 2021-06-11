@@ -63,4 +63,3 @@ class StatusSerializer(serializers.HyperlinkedModelSerializer):
         fields = [
             'url', 'label', 'notes']
         read_only_fields = ['label', 'notes']
-

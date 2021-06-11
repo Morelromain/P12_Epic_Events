@@ -46,9 +46,9 @@ class ContractPermission(permissions.BasePermission):
     def has_object_permission(self, request, view, obj):
         if request.user.groups.filter(name="Sales").exists():
             if (request.user == obj.sales_contact and
-                obj.ratified is False):
+                    obj.ratified is False):
                 return True
-            else :
+            else:
                 return request.method in permissions.SAFE_METHODS
         if request.user.groups.filter(name="Support").exists():
             return request.method in permissions.SAFE_METHODS
@@ -76,7 +76,7 @@ class EventPermission(permissions.BasePermission):
             return request.method in permissions.SAFE_METHODS
         if request.user.groups.filter(name="Support").exists():
             if (request.user == obj.support_contact and
-                obj.accomplish is False):
+                    obj.accomplish is False):
                 return request.method in [
                     "GET", "PUT", "PATCH", "OPTIONS", "HEAD"]
             else:

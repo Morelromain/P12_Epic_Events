@@ -3,8 +3,12 @@ from rest_framework.filters import SearchFilter
 from django_filters.rest_framework import DjangoFilterBackend
 
 from .models import Client, Contract, Event, Status
-from .serializers import ClientSerializer, ContractSerializer, EventSerializer, StatusSerializer
-from .perm import ClientPermission, ContractPermission, EventPermission, StatusPermission
+from .serializers import (
+    ClientSerializer, ContractSerializer,
+    EventSerializer, StatusSerializer)
+from .perm import (
+    ClientPermission, ContractPermission,
+    EventPermission, StatusPermission)
 
 
 class ClientViewSet(viewsets.ModelViewSet):
