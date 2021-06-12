@@ -34,6 +34,9 @@ class ContractSerializer(serializers.HyperlinkedModelSerializer):
         info = Contract.objects.create(**validated_data)
         info.sales_contact = self.context["request"].user
         Event.objects.create(event_contract=info, client=info.client)
+        client = Client.objects.get(id=info.client_id)
+        client.converted = True
+        client.save()
         info.save()
         return info
 
