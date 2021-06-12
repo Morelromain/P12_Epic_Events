@@ -67,8 +67,9 @@ class Event(models.Model):
     date_update = models.DateTimeField(auto_now=True, null=True)
     accomplish = models.BooleanField(default=False)
     support_contact = models.ForeignKey(
-        to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE,
-        blank=True, null=True)
+        to=settings.AUTH_USER_MODEL, 
+        limit_choices_to={'groups__name': "Support"},
+        on_delete=models.CASCADE, blank=True, null=True)
     client = models.ForeignKey(
         to=Client, on_delete=models.CASCADE,
         blank=True, null=True)
