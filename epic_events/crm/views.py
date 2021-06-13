@@ -55,7 +55,7 @@ class EventViewSet(viewsets.ModelViewSet):
 
 class StatusViewSet(viewsets.ModelViewSet):
     """
-    API endpoint that allows Status to be viewed or edited.
+    API endpoint that allows Status to be viewed.
     """
 
     queryset = Status.objects.all()
@@ -68,7 +68,6 @@ class MyClientViewSet(viewsets.ModelViewSet):
     API endpoint that allows the user's Clients to be viewed or edited.
     """
 
-    queryset = Client.objects.all()
     serializer_class = ClientSerializer
     permission_classes = [(ClientPermission & permissions.IsAuthenticated)]
     filter_backends = [DjangoFilterBackend, SearchFilter]
@@ -87,7 +86,6 @@ class MyContractViewSet(viewsets.ModelViewSet):
     API endpoint that allows the user's Contracts to be viewed or edited.
     """
 
-    queryset = Contract.objects.all()
     serializer_class = ContractSerializer
     permission_classes = [(ContractPermission & permissions.IsAuthenticated)]
     filter_backends = [DjangoFilterBackend, SearchFilter]
@@ -103,7 +101,6 @@ class MyEventViewSet(viewsets.ModelViewSet):
     API endpoint that allows the user's Events to be viewed or edited.
     """
 
-    queryset = Event.objects.all()
     serializer_class = EventSerializer
     permission_classes = [(EventPermission & permissions.IsAuthenticated)]
     filter_backends = [DjangoFilterBackend, SearchFilter]
