@@ -14,6 +14,11 @@ class ClientSerializer(serializers.HyperlinkedModelSerializer):
         read_only_fields = ['sales_contact']
 
     def create(self, validated_data):
+        """
+        Create a client: 
+        - field sales_contact is the creator
+        """
+
         info = Client.objects.create(**validated_data)
         info.sales_contact = self.context["request"].user
         info.save()
@@ -31,6 +36,13 @@ class ContractSerializer(serializers.HyperlinkedModelSerializer):
         read_only_fields = ['sales_contact']
 
     def create(self, validated_data):
+        """
+        Create a contract: 
+        - field sales_contact is the creator
+        - the field converted connected client changes to true
+        - create automatically a Event with some Contract info
+        """
+
         info = Contract.objects.create(**validated_data)
         info.sales_contact = self.context["request"].user
         Event.objects.create(event_contract=info, client=info.client)
@@ -50,13 +62,6 @@ class EventSerializer(serializers.HyperlinkedModelSerializer):
             'event_date', 'accomplish', 'support_contact', 'client',
             'event_contract']
     read_only_fields = ['client']
-
-    def create(self, validated_data):
-        info = Event.objects.create(**validated_data)
-        Contract.objects.filter(id=info.event_contract_id)
-        info.sales_contact = self.context["request"].user
-        info.save()
-        return info
 
 
 class StatusSerializer(serializers.HyperlinkedModelSerializer):

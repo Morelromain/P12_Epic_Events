@@ -55,7 +55,7 @@ class EventViewSet(viewsets.ModelViewSet):
 
 class StatusViewSet(viewsets.ModelViewSet):
     """
-    API endpoint that allows Events to be viewed or edited.
+    API endpoint that allows Status to be viewed or edited.
     """
 
     queryset = Status.objects.all()
