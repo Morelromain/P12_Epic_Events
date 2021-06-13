@@ -68,8 +68,7 @@ To access browsable API : [http://127.0.0.1:8000](http://127.0.0.1:8000/)
 Only sales and support users can access data
 
 POSTMAN documentation link of the OC_P12 collection :  
-[https://documenter.getpostman.com/view/14076898/TzeTHow3]
-(https://documenter.getpostman.com/view/14076898/TzeTHow3)
+[https://documenter.getpostman.com/view/14076898/TzeTHow3](https://documenter.getpostman.com/view/14076898/TzeTHow3)
 
 Follow the documentation to access API endpoints, 
 see all methode allow per groups, restriction, filter and more.
@@ -112,10 +111,6 @@ Python Version : 3.8.3
 
 - Créez la base de donnée SQL : `postgres=# CREATE DATABASE epic_events;` 
 
-## Exécution
-
-- Démarrez le serveur avec `$ python manage.py runserver`
-
 ## Start
 
 - Allez le dossier epic_events : `> cd epic_events`  
@@ -144,7 +139,7 @@ __Permission__
 
 - Seuls les administrateurs et les utilisateurs "management" peuvent y accéder  
 - les administrateurs ont toutes les autorisations  
-- les utilisateurs de gestion ont des permissions réduites :  
+- les utilisateurs de "management" ont des permissions réduites :  
 allez dans l'onglet du groupe "management" pour les voir en détail
 
 ## API web
@@ -154,14 +149,13 @@ Pour accéder à l'API  : [http://127.0.0.1:8000](http://127.0.0.1:8000/)
 Seuls les utilisateurs "sales" et "support" peuvent accéder aux données  
 
 Lien de la documentation POSTMAN de la collection OC_P12 :  
-[https://documenter.getpostman.com/view/14076898/TzeTHow3]
-(https://documenter.getpostman.com/view/14076898/TzeTHow3)
+[https://documenter.getpostman.com/view/14076898/TzeTHow3](https://documenter.getpostman.com/view/14076898/TzeTHow3)
 
 Suivez la documentation pour accéder aux points de terminaison de l'API, 
 voir toutes les méthodes autorisées par groupe, restriction, filtre et autre.
 
 ## Gestion des erreurs
 
-Un fichier journal des erreurs peut être consulté à la racine de l'application :  
+Un fichier de journalisation des erreurs peut être consulté à la racine de l'application :  
 `error.log`  
 les erreurs identifiées sont classées par leurs dates.
