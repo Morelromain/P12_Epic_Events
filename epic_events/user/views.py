@@ -1,5 +1,7 @@
 from rest_framework import viewsets
 from rest_framework import permissions
+from rest_framework.decorators import action
+from rest_framework.response import Response
 
 from django.contrib.auth.models import Group
 
@@ -17,6 +19,12 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = [(UserPermission & permissions.IsAuthenticated)]
+
+    @action(detail=False, methods=['GET'])
+    def my_own_user(self, request, **kwargs):
+        queryset = self.get_queryset().filter(username=self.request.user)
+        serializer = UserSerializer(queryset, many=True, context={'request': request})
+        return Response(serializer.data)
 
 
 class GroupViewSet(viewsets.ModelViewSet):

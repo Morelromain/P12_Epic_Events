@@ -16,10 +16,6 @@ router.register(r'contracts', crm_views.ContractViewSet)
 router.register(r'events', crm_views.EventViewSet)
 router.register(r'status', crm_views.StatusViewSet)
 
-router.register(r'my_clients', crm_views.MyClientViewSet, "my_clients")
-router.register(r'my_contracts', crm_views.MyContractViewSet, "my_contracts")
-router.register(r'my_event', crm_views.MyEventViewSet, "my_event")
-
 router.get_api_root_view().cls.__name__ = "Epic Event"
 router.get_api_root_view().cls.__doc__ = (
     "API Epic Event for sales and support user"
