@@ -15,6 +15,10 @@ class CRMViewsTests(APITestCase):
             'username': self.username,
             'password': self.password,
         }
+        self.data2 = {
+            'first_name': 'client1',
+            'last_name': 'client1',
+        }
         self.url_get_token = reverse('token_obtain_pair')
 
     def test_basic_index_acces(self):
@@ -71,3 +75,22 @@ class CRMViewsTests(APITestCase):
         response = self.client.get("/clients/", data={'format': 'json'})
         self.assertEqual(
             response.status_code, status.HTTP_200_OK, response.content)
+
+    def test_login_and_post_with_token_GOOD(self):
+        """
+        succès login to API and create client on endpoint
+        """
+
+        group = Group.objects.create(name='Sales')
+        user = User.objects.create_user(
+            username='test_user', password='test_mdp')
+        user.groups.add(group)
+        response = self.client.post(
+            self.url_get_token, self.data, format='json')
+        self.assertEqual(
+            response.status_code, status.HTTP_200_OK, response.content)
+        token = response.data['access']
+        self.client.credentials(HTTP_AUTHORIZATION='Bearer {0}'.format(token))
+        response = self.client.post("/clients/", self.data2, format='json')
+        self.assertEqual(
+            response.status_code, status.HTTP_201_CREATED, response.content)
